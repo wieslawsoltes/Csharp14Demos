@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+
 namespace FunctionalExtensions;
 
 /// <summary>
@@ -6,11 +9,24 @@ namespace FunctionalExtensions;
 public static class TaskIO
 {
     public static TaskIO<T> Return<T>(T value)
-        => new(System.Threading.Tasks.Task.FromResult(value));
+        => new(Task.FromResult(value));
 
     public static TaskIO<T> From<T>(Func<Task<T>> producer)
-        => new(producer());
+    {
+        ArgumentNullException.ThrowIfNull(producer);
+        return new(producer());
+    }
 
     public static TaskIO<Unit> From(Func<Task> producer)
-        => new(producer().ContinueWith(_ => Unit.Value));
+    {
+        ArgumentNullException.ThrowIfNull(producer);
+
+        return new(ExecuteAsync(producer));
+
+        static async Task<Unit> ExecuteAsync(Func<Task> action)
+        {
+            await action().ConfigureAwait(false);
+            return Unit.Value;
+        }
+    }
 }

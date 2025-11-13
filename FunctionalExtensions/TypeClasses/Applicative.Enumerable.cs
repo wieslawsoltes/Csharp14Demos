@@ -28,7 +28,7 @@ public static class EnumerableApplicative
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(applicative);
 
-            return applicative.SelectMany(func => source.Select(func));
+            return System.Linq.Enumerable.SelectMany(applicative, func => System.Linq.Enumerable.Select(source, func));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ public static class EnumerableApplicative
             ArgumentNullException.ThrowIfNull(other);
             ArgumentNullException.ThrowIfNull(selector);
 
-            return source.SelectMany(first => other.Select(second => selector(first, second)));
+            return System.Linq.Enumerable.SelectMany(source, first => System.Linq.Enumerable.Select(other, second => selector(first, second)));
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ public static class EnumerableApplicative
             ArgumentNullException.ThrowIfNull(applicative);
             ArgumentNullException.ThrowIfNull(values);
 
-            return applicative.SelectMany(func => values.Select(func));
+            return System.Linq.Enumerable.SelectMany(applicative, func => System.Linq.Enumerable.Select(values, func));
         }
     }
 }

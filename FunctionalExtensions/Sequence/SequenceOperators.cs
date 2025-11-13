@@ -73,9 +73,18 @@ public static class SequenceOperators
             var left = comparer is null ? new HashSet<TSource>(source) : new HashSet<TSource>(source, comparer);
             var right = comparer is null ? new HashSet<TSource>(other) : new HashSet<TSource>(other, comparer);
 
-            var difference = left.Except(right);
-            var reverseDifference = right.Except(left);
-            return difference.Concat(reverseDifference);
+            static IEnumerable<TSource> Difference(HashSet<TSource> first, HashSet<TSource> second)
+            {
+                foreach (var item in first)
+                {
+                    if (!second.Contains(item))
+                    {
+                        yield return item;
+                    }
+                }
+            }
+
+            return Difference(left, right).Concat(Difference(right, left));
         });
 
     public static SequencePipe<TSource, IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(Func<TSource, TKey> keySelector)

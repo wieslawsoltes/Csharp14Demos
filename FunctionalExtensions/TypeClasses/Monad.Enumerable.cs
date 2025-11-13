@@ -28,7 +28,7 @@ public static class EnumerableMonad
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(binder);
 
-            return source.SelectMany(binder);
+            return System.Linq.Enumerable.SelectMany(source, binder);
         }
 
         /// <summary>
@@ -48,8 +48,9 @@ public static class EnumerableMonad
             ArgumentNullException.ThrowIfNull(binder);
             ArgumentNullException.ThrowIfNull(projector);
 
-            return source.SelectMany(
-                item => binder(item).Select(intermediate => projector(item, intermediate)));
+            return System.Linq.Enumerable.SelectMany(
+                source,
+                item => System.Linq.Enumerable.Select(binder(item), intermediate => projector(item, intermediate)));
         }
     }
 
@@ -61,7 +62,7 @@ public static class EnumerableMonad
         public IEnumerable<T> Join()
         {
             ArgumentNullException.ThrowIfNull(nested);
-            return nested.SelectMany(inner => inner);
+            return System.Linq.Enumerable.SelectMany(nested, inner => inner);
         }
     }
 }

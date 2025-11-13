@@ -85,14 +85,67 @@ public static partial class SequenceExtensions
 
         public Option<T> ToOption()
         {
-            var task = taskIO.Invoke();
-            if (task.IsCompletedSuccessfully)
+            try
             {
-                var result = task.Result;
-                return result is null ? Option<T>.None : Option<T>.Some(result);
+                var value = taskIO.Invoke().GetAwaiter().GetResult();
+                return value is null ? Option<T>.None : Option<T>.Some(value);
             }
+            catch
+            {
+                return Option<T>.None;
+            }
+        }
 
-            return Option<T>.None;
+        public async Task<Option<T>> ToOptionAsync()
+        {
+            try
+            {
+                var value = await taskIO.Invoke().ConfigureAwait(false);
+                return value is null ? Option<T>.None : Option<T>.Some(value);
+            }
+            catch
+            {
+                return Option<T>.None;
+            }
+        }
+
+        public async Task<Result<T>> ToResultAsync(Func<Exception, string>? errorFactory = null)
+        {
+            try
+            {
+                var value = await taskIO.Invoke().ConfigureAwait(false);
+                return Result<T>.Ok(value);
+            }
+            catch (Exception ex)
+            {
+                return Result<T>.Fail(errorFactory?.Invoke(ex) ?? ex.Message);
+            }
+        }
+
+        public Try<T> ToTry()
+        {
+            try
+            {
+                var value = taskIO.Invoke().GetAwaiter().GetResult();
+                return Try<T>.Success(value);
+            }
+            catch (Exception ex)
+            {
+                return Try<T>.Failure(ex);
+            }
+        }
+
+        public async Task<Try<T>> ToTryAsync()
+        {
+            try
+            {
+                var value = await taskIO.Invoke().ConfigureAwait(false);
+                return Try<T>.Success(value);
+            }
+            catch (Exception ex)
+            {
+                return Try<T>.Failure(ex);
+            }
         }
 
         public TaskIO<T> ToTaskIO()

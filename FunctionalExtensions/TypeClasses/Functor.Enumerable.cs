@@ -19,7 +19,7 @@ public static partial class Functor
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
 
-            return source.Select(selector);
+            return System.Linq.Enumerable.Select(source, selector);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ public static partial class Functor
         public IEnumerable<TResult> As<TResult>(TResult value)
         {
             ArgumentNullException.ThrowIfNull(source);
-            return source.Select(_ => value);
+            return System.Linq.Enumerable.Select(source, _ => value);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ public static partial class Functor
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(effect);
 
-            return source.Select(item =>
+            return System.Linq.Enumerable.Select(source, item =>
             {
                 effect(item);
                 return item;
