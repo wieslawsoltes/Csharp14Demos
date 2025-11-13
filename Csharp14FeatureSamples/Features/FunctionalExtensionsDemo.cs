@@ -9,7 +9,7 @@ using static FunctionalExtensions.SequenceOperators;
 
 namespace Csharp14FeatureSamples.Features;
 
-public sealed class ExtensionMembersDemoEx : IFeatureDemo
+public sealed class FunctionalExtensionsDemo : IFeatureDemo
 {
     public string Title => "Extension members";
 

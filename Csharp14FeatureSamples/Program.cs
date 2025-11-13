@@ -11,7 +11,7 @@ var demos = new IFeatureDemo[]
     new PartialMembersDemo(),
     new UserDefinedCompoundAssignmentDemo(),
     new NullConditionalAssignmentDemo(),
-    new ExtensionMembersDemoEx(),
+    new FunctionalExtensionsDemo(),
 };
 
 Console.WriteLine("C# 14 Feature Samples");
