@@ -4,6 +4,18 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>FunctionalExtensions.TypeClasses</PackageId>
+    <Authors>Wieslaw Soltes</Authors>
+    <Company>Wieslaw Soltes</Company>
+    <Description>Haskell-inspired Functor, Applicative, and Monad extension modules for Option, Task, and IEnumerable built with C# 14 extension members.</Description>
+    <PackageTags>csharp14;extension-members;functor;applicative;monad;functional-programming</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/wieslawsoltes/Csharp14Demos</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageVersion>0.1.0</PackageVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
 </Project>

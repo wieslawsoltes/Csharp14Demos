@@ -3,7 +3,7 @@ namespace FunctionalExtensions;
 /// <summary>
 /// Construction helpers for <see cref="TaskResult{T}"/>.
 /// </summary>
-public static class TaskResults
+public static partial class TaskResults
 {
     public static TaskResult<T> Return<T>(T value)
         => new(Task.FromResult(Result<T>.Ok(value)));
