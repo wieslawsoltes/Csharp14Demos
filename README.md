@@ -35,3 +35,13 @@ dotnet run --project Csharp14FeatureSamples/Csharp14FeatureSamples.csproj
 - `Features/` – Folder containing individual, well-commented samples for every C# 14 feature listed above.
 
 Feel free to open a specific demo file to copy the snippet into your own projects or to experiment further with the new syntax.
+
+## Functional CRM sample
+
+The repository now also includes a realistic Avalonia desktop application under `FunctionalExtensions.CrmSample/` that exercises the entire `FunctionalExtensions` library across a mini CRM workflow (SQLite persistence, file attachments, HTTP enrichment, background notifications, undo stack powered by continuations, etc.).
+
+```bash
+dotnet run --project FunctionalExtensions.CrmSample/FunctionalExtensions.CrmSample.csproj
+```
+
+> The sample uses .NET 10 preview + C# 14, so be sure to install the matching SDK referenced in `global.json`.

@@ -1,0 +1,78 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FunctionalExtensions.CrmSample.Views.MainWindow"
+        Width="1100"
+        Height="700"
+        Title="Functional CRM (FunctionalExtensions showcase)">
+    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="2*,*,300">
+        <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" Margin="8" Spacing="8">
+            <Button Content="Refresh" Command="{Binding RefreshCommand}"/>
+            <Button Content="Save Draft" Command="{Binding SaveCommand}"/>
+            <Button Content="New Draft" Command="{Binding NewDraftCommand}"/>
+            <Button Content="Load Selected" Command="{Binding LoadDraftCommand}"/>
+            <Button Content="Delete Selected" Command="{Binding DeleteCommand}"/>
+            <Button Content="Import Sample CSV" Command="{Binding ImportCommand}"/>
+            <Button Content="Export Attachments" Command="{Binding ExportCommand}"/>
+            <Button Content="Undo" Command="{Binding UndoCommand}"/>
+            <TextBox Width="200"
+                     Watermark="Search..."
+                     Text="{Binding FilterText}"/>
+            <CheckBox Content="Include archived" IsChecked="{Binding IncludeArchived}"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  ItemsSource="{Binding Customers}"
+                  SelectedItem="{Binding SelectedCustomer}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Margin="8">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="*"/>
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="80"/>
+                <DataGridTextColumn Header="Momentum" Binding="{Binding Momentum}" Width="80"/>
+                <DataGridCheckBoxColumn Header="Archived" Binding="{Binding IsArchived}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Grid.Column="2" Margin="8" Spacing="8">
+            <TextBlock Text="Quick Draft" FontWeight="Bold"/>
+            <TextBlock Text="Name" FontSize="12" />
+            <TextBox Text="{Binding Editor.Name}"/>
+            <TextBlock Text="Email" FontSize="12" />
+            <TextBox Text="{Binding Editor.Email}"/>
+            <TextBlock Text="Phone" FontSize="12" />
+            <TextBox Text="{Binding Editor.Phone}"/>
+            <CheckBox Content="Archived" IsChecked="{Binding Editor.IsArchived}"/>
+            <Separator/>
+            <TextBlock Text="Remote Companies" FontWeight="Bold"/>
+            <ListBox ItemsSource="{Binding RemoteCompanies}" Height="150"/>
+            <Separator/>
+            <TextBlock Text="Notifications" FontWeight="Bold"/>
+            <ItemsControl ItemsSource="{Binding Notifications}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,4"
+                                Padding="8"
+                                CornerRadius="4"
+                                Background="{DynamicResource ThemeAccentBrush}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Message}"/>
+                                <TextBlock Text="{Binding Timestamp, StringFormat=t}"
+                                           FontSize="10"
+                                           Opacity="0.7"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <Border Grid.Row="2" Grid.ColumnSpan="3" Background="{DynamicResource ThemeBackgroundBrush}" Padding="8">
+            <TextBlock Text="{Binding SelectedCustomer.Name, FallbackValue=No selection}"/>
+        </Border>
+    </Grid>
+</Window>
