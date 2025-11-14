@@ -1,0 +1,33 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore Csharp14Demos.sln
+
+      - name: Build
+        run: dotnet build Csharp14Demos.sln --configuration Release --no-restore
+
+      - name: Test libraries
+        run: dotnet test FunctionalExtensions.Tests/FunctionalExtensions.Tests.csproj --configuration Release --no-build --verbosity normal
+
+      - name: Validate documentation snippets
+        run: dotnet build docs/snippets/FunctionalExtensions.Snippets.csproj --configuration Release

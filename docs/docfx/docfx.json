@@ -1,0 +1,55 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/v3.0.0-beta2/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "../../FunctionalExtensions/FunctionalExtensions.csproj"
+          ],
+          "cwd": "../.."
+        }
+      ],
+      "dest": "api",
+      "disableGitFeatures": false,
+      "properties": {
+        "TargetFramework": "net10.0"
+      }
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "../index.md",
+          "../installation.md",
+          "../faq.md",
+          "../functionalextensions-docs-plan.md",
+          "../getting-started/**.md",
+          "../concepts/**.md",
+          "../how-to/**.md",
+          "../samples/**.md",
+          "../reference/**.md"
+        ]
+      },
+      {
+        "files": [
+          "api/**.yml",
+          "api/index.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "../images/**"
+        ]
+      }
+    ],
+    "overwrite": [],
+    "dest": "_site",
+    "globalMetadata": {
+      "_appTitle": "FunctionalExtensions Docs"
+    }
+  }
+}
